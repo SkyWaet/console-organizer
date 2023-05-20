@@ -74,6 +74,14 @@ public final class XmlUtils {
         return b.parse(new File(fileName));
     }
 
+    public static Document createNewDocument(String filePath) throws ParserConfigurationException, TransformerException {
+        Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
+        Element root = document.createElement("persons");
+        document.appendChild(root);
+        writeToFile(document, filePath);
+        return document;
+    }
+
     public static void writeToFile(Document document, String fileName) throws TransformerException {
         DOMSource source = new DOMSource(document);
         TransformerFactory factory = TransformerFactory.newInstance();
