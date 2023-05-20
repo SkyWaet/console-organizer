@@ -7,7 +7,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -34,7 +33,7 @@ class XmlUtilsTest {
             .build();
 
     @BeforeEach
-    public void init() throws TransformerException, ParserConfigurationException, IOException, SAXException {
+    public void init() throws TransformerException, ParserConfigurationException, IOException {
         Files.createFile(Path.of(FILE_PATH));
         Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
         Element root = document.createElement("persons");
