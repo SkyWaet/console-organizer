@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.Map;
 
 public final class XmlUtils {
+    private static final String LIST_ITEM_SEPARATOR = ", ";
+
     private XmlUtils() {
     }
 
@@ -120,7 +122,7 @@ public final class XmlUtils {
         personRoot.appendChild(email);
 
         Element phoneNumbers = doc.createElement("phoneNumbers");
-        phoneNumbers.appendChild(doc.createTextNode(String.join(", ", person.getPhoneNumbers())));
+        phoneNumbers.appendChild(doc.createTextNode(String.join(LIST_ITEM_SEPARATOR, person.getPhoneNumbers())));
         personRoot.appendChild(phoneNumbers);
 
         return personRoot;
@@ -168,7 +170,7 @@ public final class XmlUtils {
     }
 
     private static List<String> getListFromTextNode(Text node) {
-        return Arrays.stream(node.getData().trim().split(", ")).toList();
+        return Arrays.stream(node.getData().trim().split(LIST_ITEM_SEPARATOR)).toList();
     }
 
 }

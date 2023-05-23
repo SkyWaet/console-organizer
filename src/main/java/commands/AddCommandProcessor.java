@@ -54,7 +54,9 @@ public class AddCommandProcessor extends AbstractCommandProcessor {
         List<String> phoneNumbers = new ArrayList<>();
         String line = reader.nextLine();
         while (!"\\q".equals(line)) {
-            phoneNumbers.add(line);
+            if (!line.isBlank()) {
+                phoneNumbers.add(line);
+            }
             line = reader.nextLine();
         }
         builder.phoneNumbers(phoneNumbers);

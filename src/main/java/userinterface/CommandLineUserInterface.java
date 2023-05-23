@@ -1,14 +1,12 @@
 package userinterface;
 
-import commands.*;
+import commands.CommandProcessor;
 import model.Command;
-import storage.PersonStorage;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintStream;
-import java.util.EnumMap;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -17,16 +15,12 @@ public class CommandLineUserInterface implements UserInterface {
     private final Scanner reader;
     private final PrintStream writer;
 
-    private final Map<Command, CommandProcessor> commandProcessors = new EnumMap<>(Command.class);
+    private final Map<Command, CommandProcessor> commandProcessors;
 
-    public CommandLineUserInterface(PersonStorage storage, InputStream readFrom, OutputStream writeTo) {
+    public CommandLineUserInterface(InputStream readFrom, OutputStream writeTo, Map<Command, CommandProcessor> commandProcessors) {
         this.reader = new Scanner(readFrom);
         this.writer = new PrintStream(writeTo);
-        commandProcessors.put(Command.ADD, new AddCommandProcessor(storage, reader, writer));
-        commandProcessors.put(Command.EDIT, new EditCommandProcessor(storage, reader, writer));
-        commandProcessors.put(Command.FIND_ALL, new FindAllCommandProcessor(storage, reader, writer));
-        commandProcessors.put(Command.FIND_ONE, new FindOneCommandProcessor(storage, reader, writer));
-        commandProcessors.put(Command.EXIT, new ExitCommandProcessor(storage, reader, writer));
+        this.commandProcessors = commandProcessors;
     }
 
     @Override
